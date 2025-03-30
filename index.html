@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
     <title>For Gulmaral</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
         :root{
             --primary: #fff;
             --bg-color: linear-gradient(120deg, #ff9a9e, #fad0c4);
@@ -15,6 +15,7 @@
             --envelope-cover: #e0a899;
             --shadow-color: rgba(0, 0, 0, 0.2);
             --txt-color: #444;
+            --arrow-color: #ff6600;
         }
         body{
             margin: 0;
@@ -26,130 +27,116 @@
             justify-content: center;
         }
         .container {
-            height: 100vh;
+            height: 120vh;
             display: grid;
             place-items: center;
         }
-        .container > .envelope-wrapper {
+        .envelope-wrapper {
             background: var(--bg-envelope-color);
             box-shadow: 0 0 40px var(--shadow-color);
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
-        .envelope-wrapper > .envelope {
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+        .envelope {
             position: relative;
-            width: 300px;
-            height: 230px;
+            width: 350px;
+            height: 280px;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             border: 2px solid #d18a73;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        .envelope-wrapper > .envelope:hover {
-            transform: scale(1.05) rotate(-2deg);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-        }
-        .envelope-wrapper > .envelope::before {
-            content: "";
+        .letter {
             position: absolute;
-            top: 0;
-            z-index: 2;
-            border-top: 130px solid var(--envelope-tab);
-            border-right: 150px solid transparent;
-            border-left: 150px solid transparent;
-            transform-origin: top;
-            transition: all 0.5s ease-in-out 0.7s;
-        }
-        .envelope-wrapper > .envelope::after {
-            content: "";
-            position: absolute;
-            z-index: 2;
-            width: 0px;
-            height: 0px;
-            border-top: 130px solid transparent;
-            border-right: 150px solid var(--envelope-cover);
-            border-bottom: 100px solid var(--envelope-cover);
-            border-left: 150px solid var(--envelope-cover);
-        }
-        .envelope > .letter {
-            position: absolute;
-            right: 20%;
+            right: 50%;
             bottom: 0;
-            width: 54%;
-            height: 80%;
+            width: 110%;
+            height: 100%;
             background: var(--primary);
             text-align: center;
             transition: all 1s ease-in-out;
             box-shadow: 0 0 5px var(--shadow-color);
-            padding: 20px 10px;
+            padding: 30px 15px;
             border-radius: 5px;
             opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .envelope > .letter > .text {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            transform: translateY(20px) rotate(-5deg);
+            z-index: 3;
+            font-family: 'Nunito', sans-serif;
+            font-size: 20px;
             color: var(--txt-color);
-            text-align: left;
-            font-size: 10px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out 1.5s;
         }
-        
-        .flap > .envelope:before {
-            transform: rotateX(180deg);
-            z-index: 0;
-        }
-        .flap > .envelope > .letter {
-            bottom: 100px;
-            transform: scale(1.5) translateY(-10px);
+        .flap .letter {
+            bottom: 180px;
+            transform: scale(1.2) translateY(-10px) rotate(-5deg);
             transition-delay: 0.8s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             opacity: 1;
+            z-index: 3;
         }
-        .flap > .envelope > .letter > .text {
-            opacity: 1;
+        .page {
+            display: none;
         }
-
-        .letter a {
-            display: inline-block;
+        .active {
+            display: block;
+        }
+        .arrow {
             margin-top: 10px;
-            padding: 5px 10px;
-            background: #d18a73;
-            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--arrow-color);
+            transition: color 0.3s;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-            pointer-events: all;
         }
-        .letter a:hover {
-            background: #a8644e;
+        .arrow:hover {
+            color: #cc5200;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="envelope-wrapper">
+        <div class="envelope-wrapper" onclick="openLetter()">
             <div class="envelope">
                 <div class="letter">
-                    <div class="text">
-                        <strong>Dear Gulmaral,</strong>
-                        <p>
-                            I officially invite you to a meeting. I know we both might have busy schedules, so I want to make sure we find a time that works for us.
-                            To help plan things smoothly, could you please answer a few questions?
-                        </p>
-                        <p>Looking forward to hearing from you!
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc_nQCw4O0FiBomVMHDC4G0VvH4WBy9UXdq9k7wUijAs6Ycpg/viewform?usp=header" target="_blank">To the survey</a>
-                        </p>
+                    <div class="page active" id="page1">
+                        <p>Dear Gulmaral,<br>We never met, but ...</p>
+                        <a class="arrow" onclick="nextPage(2, event)">➡️</a>
+                    </div>
+                    <div class="page" id="page2">
+                        <p>This is not a confession.
+At first, I subscribed for the sweatshirt, but I stayed for the content.
+What you and your entire 232 studio create, and your dedication to it are truly impressive and inspiring.</p>
+                        <a class="arrow" onclick="nextPage(3, event)">➡️</a>
+                    </div>
+                    <div class="page" id="page3">
+                        <p>I’d love to officially invite you to a meeting, but it’s still a bit early for that. That said, I want to make sure we find a time that works for both of us when the moment is right.
+
+To help plan ahead, could you take a moment to answer a few questions?</p>
+                        <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc_nQCw4O0FiBomVMHDC4G0VvH4WBy9UXdq9k7wUijAs6Ycpg/viewform?usp=header', '_blank')">Yes</button>
+ Or                      
+                       <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeIAxVLvpL3TnV1PlGfK3SHz7v3O2lyTqKs5_n4far58rE5ag/viewform?usp=header', '_blank')">No</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
-        const envelope = document.querySelector('.envelope-wrapper');
-        envelope.addEventListener('click', (e) => {
-            if (!e.target.closest('a')) {
-                envelope.classList.toggle('flap');
-            }
-        });
+        function openLetter() {
+            document.querySelector('.envelope-wrapper').classList.add('flap');
+        }
+
+        function nextPage(pageNumber, event) {
+            event.stopPropagation();
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+        }
     </script>
 </body>
 </html>
