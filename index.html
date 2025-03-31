@@ -90,44 +90,34 @@
             display: block;
             opacity: 1;
         }
-        .arrow {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: solid var(--arrow-color);
-            border-width: 6px 6px 0 0;
-            transform: rotate(45deg);
+        .next-text {
+            display: block;
             margin-top: 20px;
             cursor: pointer;
-            transition: border-color 0.3s;
+            font-weight: bold;
+            color: var(--arrow-color);
+            transition: color 0.3s;
         }
-        .arrow:hover {
-            border-color: #cc5200;
+        .next-text:hover {
+            color: #cc5200;
         }
-        .button-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .yes-button, .no-button {
-            padding: 12px 25px;
+        .btn {
+            padding: 12px 30px;
             font-size: 18px;
             font-weight: bold;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             color: white;
             cursor: pointer;
             transition: transform 0.2s ease-in-out, box-shadow 0.2s;
         }
-        .yes-button {
+        .btn-yes {
             background: var(--yes-bg);
         }
-        .no-button {
+        .btn-no {
             background: var(--no-bg);
         }
-        .yes-button:hover, .no-button:hover {
+        .btn:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -138,23 +128,29 @@
         <div class="envelope">
             <div class="letter">
                 <div class="page active" id="page1">
-                    <p>Dear Gulmaral,<br>We never met, but ...</p>
-                    <div class="arrow" onclick="nextPage(2, event)"></div>
+                    <p>For the one I’d like to meet properly someday,<br>We never met, but ...</p>
+                    <span class="next-text" onclick="nextPage(2, event)">next</span>
                 </div>
                 <div class="page" id="page2">
                     <p>This is not a confession. At first, I subscribed for the sweatshirt, but I stayed for the content. What you and the entire studio create, and your dedication to it are truly impressive and inspiring.</p>
-                    <div class="arrow" onclick="nextPage(3, event)"></div>
+                    <span class="next-text" onclick="nextPage(3, event)">next</span>
                 </div>
                 <div class="page" id="page3">
-                    <p>I’d love to officially invite you to a meeting, but it’s still a bit early for that. That said, I want to make sure we find a time that works for both of us when the moment is right. To help plan ahead, could you take a moment to answer a few questions?</p>
-                    <div class="arrow" onclick="nextPage(4, event)"></div>
+                    <p>I want to invite you to a meeting—but right now, it feels too soon, like a story still unfolding. Timing is everything, and I want ours to be just right.</p>
+                    <span class="next-text" onclick="nextPage(4, event)">next</span>
                 </div>
                 <div class="page" id="page4">
+                    <p>So, when that moment comes, will you help me make it perfect by answering a few questions?</p>
                     <div class="button-container">
-                        <button class="yes-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc_nQCw4O0FiBomVMHDC4G0VvH4WBy9UXdq9k7wUijAs6Ycpg/viewform?usp=header', '_blank')">Yes</button>
-                        <span>Or</span>
-                        <button class="no-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeIAxVLvpL3TnV1PlGfK3SHz7v3O2lyTqKs5_n4far58rE5ag/viewform?usp=header', '_blank')">No</button>
+                        <button class="btn btn-yes" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc_nQCw4O0FiBomVMHDC4G0VvH4WBy9UXdq9k7wUijAs6Ycpg/viewform?usp=header', '_blank')">Sounds good</button>
                     </div>
+                    <span class="next-text" onclick="nextPage(5, event)">next</span>
+                </div>
+                <div class="page" id="page5">
+                    <div class="button-container">
+                        <button class="btn btn-no" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeIAxVLvpL3TnV1PlGfK3SHz7v3O2lyTqKs5_n4far58rE5ag/viewform?usp=header', '_blank')">Maybe later</button>
+                    </div>
+                    <span class="next-text" onclick="nextPage(4, event)">next</span>
                 </div>
             </div>
         </div>
